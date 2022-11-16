@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 def f2s(wavelength, angle, display = 'NO'):
 
     # Setup sinusoid parameters
-    array_x = np.arange(-128, 129, 1)
+    array_x = np.arange(-256, 256, 1)
     x, y = np.meshgrid(array_x, array_x)
     sinusoid = np.sin(
         2*np.pi*(x * np.cos(angle) + y * np.sin(angle)) / wavelength
@@ -30,8 +30,8 @@ def f2s(wavelength, angle, display = 'NO'):
 
         plt.subplot(121)
         plt.imshow(abs(fourier))
-        plt.xlim([0, 256])
-        plt.ylim([256, 0])  # Note, order is reversed for y
+        plt.xlim([0, 512])
+        plt.ylim([512, 0])  # Note, order is reversed for y
 
         plt.subplot(122)
         plt.imshow(spatial)
@@ -39,3 +39,11 @@ def f2s(wavelength, angle, display = 'NO'):
         plt.show()
 
     return fourier, spatial
+
+def s2f(spatial):
+    
+    fourier = np.fft.ifftshift(spatial)
+    fourier = np.fft.fft2(fourier)
+    fourier = np.fft.fftshift(fourier)
+
+    return fourier
