@@ -24,7 +24,7 @@ start = time.time()
 wmark = WaterMark(5)
 
 # Define kernel size
-mask_size = 5
+mask_size = 25
 
 # Define wavelengths
 wavelength = np.arange(3, 1005, 5)
