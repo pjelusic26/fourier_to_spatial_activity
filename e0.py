@@ -24,10 +24,10 @@ start = time.time()
 wmark = WaterMark(5)
 
 # Define kernel size
-mask_size = 25
+mask_size = 3
 
 # Define wavelengths
-wavelength = np.arange(3, 1005, 5)
+wavelength = np.arange(3, 123, 10)
 
 # Create empty lists for data
 wavelength_array = []
@@ -40,10 +40,10 @@ for i in wavelength:
     print(f"Working with wavelength {i}...")
 
     # Get fourier and spatial domain
-    fourier, spatial = f2s.f2s(i, 0)
+    fourier, spatial = f2s.f2s(i, 0, multi = 'YES')
 
     # Embed mark
-    marked, freq_mag = wmark.embedMark(spatial, factor = 250)
+    marked, freq_mag = wmark.embedMark(spatial, factor = 2500)
     print(f"Mark embedded...")
 
     # Get correlation values
@@ -75,7 +75,7 @@ df = pd.concat([df_wavelength, df_activity, df_detection, df_correlation], join 
 df.columns =['Wavelength', 'Activity', 'Detection', 'Correlation']
 
 # Name and save file
-filename = f"df_kernel_{mask_size}.csv"
+filename = f"df_kernel_{mask_size}_multi_3x3.csv"
 df.to_csv(filename)
 
 end = time.time()

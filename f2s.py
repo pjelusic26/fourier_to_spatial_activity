@@ -3,7 +3,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def f2s(wavelength, angle, display = 'NO'):
+def f2s(wavelength, angle, multi = 'NO', display = 'NO'):
 
     # Setup sinusoid parameters
     array_x = np.arange(-256, 256, 1)
@@ -11,6 +11,18 @@ def f2s(wavelength, angle, display = 'NO'):
     sinusoid = np.sin(
         2*np.pi*(x * np.cos(angle) + y * np.sin(angle)) / wavelength
     )
+
+    if multi == 'YES':
+
+        array_x = np.arange(-256, 256, 1)
+        x, y = np.meshgrid(array_x, array_x)
+        angle_2 = np.pi/2
+        sinusoid_angle = np.sin(
+            2*np.pi*(x * np.cos(angle_2) + y * np.sin(angle_2)) / wavelength
+        )
+
+        sinusoid = sinusoid + sinusoid_angle
+        
 
     # Calculate Fourier transform of sinusoid
     fourier = np.fft.ifftshift(sinusoid)
